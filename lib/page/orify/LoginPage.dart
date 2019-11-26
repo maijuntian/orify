@@ -8,12 +8,15 @@ import 'package:gsy_github_app_flutter/common/redux/gsy_state.dart';
 import 'package:gsy_github_app_flutter/common/redux/mai_state.dart';
 import 'package:gsy_github_app_flutter/common/redux/user_redux.dart';
 import 'package:gsy_github_app_flutter/common/style/gsy_style.dart';
+import 'package:gsy_github_app_flutter/common/style/m_style.dart';
+import 'package:gsy_github_app_flutter/common/utils/common_utils.dart';
+import 'package:gsy_github_app_flutter/widget/m_title_bar3.dart';
 import 'package:gsy_github_app_flutter/widget/pull/nested/gsy_nested_pull_load_widget.dart';
 import 'package:gsy_github_app_flutter/widget/state/base_person_state.dart';
 import 'package:redux/redux.dart';
 
 /**
- * 主页我的tab页
+ * 登录页面
  * Created by mai
  * Date: 2018-07-16
  */
@@ -51,11 +54,39 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return new StoreBuilder<MaiState>(
       builder: (context, store) {
-        return new Scaffold(
-            backgroundColor: Color(GSYColors.mainBackgroundColor),
-            body: Center(
-              child: new FlatButton(onPressed: _login(store), child: new Text("登录")),
-            ));
+        return new Stack(children: <Widget>[
+          Container(
+              child: Image.asset(
+            GSYICons.DEFAULT_IMAGE_PATH + "main_bg.png",
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
+          )),
+          new SafeArea(
+            child: Column(
+              children: <Widget>[
+                MImageTitleBarCommon(),
+                Expanded(
+                  child: Center(child: Column(
+                    children: <Widget>[
+                      Text(CommonUtils.getLocale(context).User_Login, style: MConstant.middleTextWhite,),
+                      Padding(padding: EdgeInsets.all(3)),
+                      Text(CommonUtils.getLocale(context).Please_enter_your_email_and_password, style: MConstant.minTextWhite,),
+                    ],
+                  ),),
+                ),
+                Container(
+                  padding: EdgeInsets.all(28),
+                  child: Column(
+                    children: <Widget>[
+
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )
+        ]);
       },
     );
   }

@@ -20,7 +20,7 @@ class MIconTextVertical extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Image.asset(this.icon, height: size, width: size,),
-        Padding(padding: EdgeInsets.only(right: padding)),
+        Padding(padding: EdgeInsets.all(padding)),
         Text(text, style: style,)
       ],
     );

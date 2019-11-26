@@ -21,14 +21,14 @@ class MColors {
   static const int trans = 0x00000000;
   static const int white10 = 0x10FFFFFF;
   static const int actionBlue = 0xff267aff;
-  static const int subTextColor = 0xff959595;
+  static const int subTextColor = 0xff666666;
   static const int subLightTextColor = 0xffc4c4c4;
 
   static const int mainBackgroundColor = miWhite;
 
   static const int mainTextColor = primaryDarkValue;
   static const int textColorWhite = white;
-  static const int textColorBlack = black;
+  static const int textColorBlack = 0xff333333;
 
   static const MaterialColor primarySwatch = const MaterialColor(
     primaryValue,
@@ -53,11 +53,16 @@ class MConstant {
   static const String app_default_share_url = "https://github.com/CarGuo/MGithubAppFlutter";
 
   static const lagerTextSize = 30.0;
-  static const bigTextSize = 23.0;
+  static const bigTextSize = 20.0;
   static const normalTextSize = 18.0;
   static const middleTextWhiteSize = 16.0;
   static const smallTextSize = 14.0;
   static const minTextSize = 12.0;
+
+  static const minTextWhite = TextStyle(
+    color: Color(MColors.textColorWhite),
+    fontSize: minTextSize,
+  );
 
   static const minText = TextStyle(
     color: Color(MColors.subLightTextColor),

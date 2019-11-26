@@ -29,14 +29,14 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-  /*NfcData _nfcData;
+/* NfcData _nfcData;
 
   @override
   void initState() {
     super.initState();
   }
 
-  Future<void> startNFC() async {
+   Future<void> startNFC() async {
     setState(() {
       _nfcData = NfcData();
       _nfcData.status = NFCStatus.reading;
@@ -186,16 +186,18 @@ class _WelcomePageState extends State<WelcomePage> {
         return new Container(
           child: Stack(
             children: <Widget>[
-              new Expanded(
-                child: new Image(
-                    image: new AssetImage('static/images/main_bg.png')),
+              Container(
+                child: Image.asset(
+                  GSYICons.DEFAULT_IMAGE_PATH + "main_bg.png",
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
+                ),
               ),
               Center(
-                  child: Row(
-                children: <Widget>[
+                  child:
                   new Image(image: new AssetImage('static/images/logo.png')),
-                ],
-              )),
+              ),
             ],
           ),
         );

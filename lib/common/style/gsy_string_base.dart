@@ -223,4 +223,41 @@ abstract class GSYStringBase {
   String search_type;
   String search_sort;
   String search_language;
+
+  //==================================================
+  String Main_Tip;
+
+  String QR_Code;
+
+  String NFC_Tag;
+
+  String Powered_Tip;
+
+  String Profile;
+
+  String Verification_Record;
+
+  String Ranks_and_Interests;
+
+  String Version;
+
+  String Login_in;
+
+  String Logout;
+
+  String User_Login;
+
+  String Please_enter_your_email_and_password;
+
+  String Email_address;
+
+  String Password;
+
+  String Login;
+
+  String Login_Tip;
+
+  String User_Agreement;
+
+  String Or;
 }

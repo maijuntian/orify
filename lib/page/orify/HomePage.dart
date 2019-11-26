@@ -3,10 +3,14 @@ import 'dart:io';
 
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:gsy_github_app_flutter/common/localization/default_localizations.dart';
+import 'package:gsy_github_app_flutter/common/model/m_user_entity.dart';
+import 'package:gsy_github_app_flutter/common/redux/mai_state.dart';
 import 'package:gsy_github_app_flutter/common/style/gsy_style.dart';
 import 'package:gsy_github_app_flutter/common/style/m_style.dart';
 import 'package:gsy_github_app_flutter/common/utils/common_utils.dart';
+import 'package:gsy_github_app_flutter/common/utils/m_navigator_utils.dart';
 import 'package:gsy_github_app_flutter/common/utils/navigator_utils.dart';
 import 'package:gsy_github_app_flutter/page/dynamic_page.dart';
 import 'package:gsy_github_app_flutter/page/my_page.dart';
@@ -52,79 +56,96 @@ class HomePage extends StatelessWidget {
                 child: Center(
                     child: Text(
               'Discover the Product\nSlogan Text',
-              style: MConstant.largeTextWhiteBold,
-                      textAlign: TextAlign.center,
-
+              style: MConstant.largeTextWhite,
+              textAlign: TextAlign.center,
             ))),
-            GestureDetector(
-                  child: Container(
-                      height: 40,
-                      width: 200,
-                      child: MIconText(GSYICons.DEFAULT_USER_ICON, "QR Code"),
-                      decoration: BoxDecoration(
-                        border:
-                            Border.all(color: Color(MColors.white), width: 1),
-                        color: Color(MColors.white10),
-                        borderRadius: BorderRadius.all(new Radius.circular(20)),
-                      )),
-              onTap: () {},
-            ),
-            Padding(padding: EdgeInsets.only(top: 15),),
             GestureDetector(
               child: Container(
                   height: 40,
-                  width: 200,
-                  child: MIconText(GSYICons.DEFAULT_USER_ICON, "NFC Tag"),
+                  width: 250,
+                  child: MIconText(
+                      GSYICons.DEFAULT_IMAGE_PATH + "icon_qr_code.png",
+                      CommonUtils.getLocale(context).QR_Code),
                   decoration: BoxDecoration(
-                    border:
-                    Border.all(color: Color(MColors.white), width: 1),
+                    border: Border.all(color: Color(MColors.white), width: 1),
                     color: Color(MColors.white10),
                     borderRadius: BorderRadius.all(new Radius.circular(20)),
                   )),
               onTap: () {},
             ),
-            Padding(padding: EdgeInsets.only(top: 30),),
-            Text("Powered by Viverify Blockchain Technology", style: MConstant.smallTextWhite,),
-            Padding(padding: EdgeInsets.only(top: 30),),
+            Padding(
+              padding: EdgeInsets.only(top: 15),
+            ),
+            GestureDetector(
+              child: Container(
+                  height: 40,
+                  width: 250,
+                  child: MIconText(
+                    GSYICons.DEFAULT_IMAGE_PATH + "icon_nfc_tag.png",
+                    CommonUtils.getLocale(context).NFC_Tag,
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color(MColors.white), width: 1),
+                    color: Color(MColors.white10),
+                    borderRadius: BorderRadius.all(new Radius.circular(20)),
+                  )),
+              onTap: () {},
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 40),
+            ),
+            Text(
+              CommonUtils.getLocale(context).Powered_Tip,
+              style: MConstant.minTextWhite,
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 40),
+            ),
           ],
         ),
       );
     }
 
-    ///增加返回按键监听
-    return WillPopScope(
-        onWillPop: () {
-          return _dialogExitApp(context);
-        },
-        child: new Stack(
-          children: <Widget>[
-            /*Container(
-              child: Image.asset(
-                "static/images/welcome.png",
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: double.infinity,
-              ),
-            ),*/
-            Scaffold(
-              backgroundColor: Color(MColors.black),
-              drawer: HomeDrawer(),
-              appBar: new AppBar(
-                elevation: 0,
-                backgroundColor: Color(MColors.trans),
-                title: MImageTitleBar(
-                  GSYICons.DEFAULT_IMAGE_PATH+"logo.png",
-                  iconData: GSYICons.DEFAULT_IMAGE_PATH+"top_icon_logout.png",
-                  needRightLocalIcon: true,
-                  onPressed: () {
-                    NavigatorUtils.goSearchPage(context);
-                  },
+    return new StoreBuilder<MaiState>(builder: (context, store) {
+      MUserEntity user = store.state.userInfo;
+
+      ///增加返回按键监听
+      return WillPopScope(
+          onWillPop: () {
+            return _dialogExitApp(context);
+          },
+          child: new Stack(
+            children: <Widget>[
+              Container(
+                child: Image.asset(
+                  GSYICons.DEFAULT_IMAGE_PATH + "main_bg.png",
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
                 ),
-                titleSpacing: 2,
               ),
-              body: _body(),
-            ),
-          ],
-        ));
+              Scaffold(
+                backgroundColor: Color(MColors.trans),
+                drawer: HomeDrawer(),
+                appBar: new AppBar(
+                  elevation: 0,
+                  backgroundColor: Color(MColors.trans),
+                  title: MImageTitleBar(
+                    GSYICons.DEFAULT_IMAGE_PATH + "logo.png",
+                    iconData: user.uuid == null
+                        ? GSYICons.DEFAULT_IMAGE_PATH + "top_icon_login_in.png"
+                        : null,
+                    needRightLocalIcon: user.uuid == null,
+                    onPressed: () {
+                      MNavigatorUtils.goLogin(context);
+                    },
+                  ),
+                  titleSpacing: 2,
+                ),
+                body: _body(),
+              ),
+            ],
+          ));
+    });
   }
 }

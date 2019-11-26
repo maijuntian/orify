@@ -280,4 +280,41 @@ class GSYStringEn extends GSYStringBase {
   String search_sort = "sort";
   @override
   String search_language = "language";
+
+  @override
+  String Main_Tip = "Discover the Product\nSlogan Text";
+  @override
+  String QR_Code = "QR Code";
+  @override
+  String NFC_Tag = "NFC Tag";
+  @override
+  String Powered_Tip = "Powered by Viverfy Blockchain Technology";
+  @override
+  String Profile = "Profile";
+  @override
+  String Verification_Record = "VerificationRecord";
+  @override
+  String Ranks_and_Interests = "Ranks and Interests";
+  @override
+  String Version = "Version";
+  @override
+  String Login_in = "Login in";
+  @override
+  String Logout = "Logout";
+  @override
+  String User_Login = "User Login";
+  @override
+  String Please_enter_your_email_and_password= "Please enter your email and password";
+  @override
+  String Email_address= "Email address";
+  @override
+  String Password= "Password";
+  @override
+  String Login= "Login";
+  @override
+  String Login_Tip= "By signing in, you agree with Viverfy‘s";
+  @override
+  String User_Agreement= "User Agreement";
+  @override
+  String Or= "Or";
 }

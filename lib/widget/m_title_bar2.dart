@@ -30,7 +30,7 @@ class MImageTitleBar extends StatelessWidget {
       widget = (needRightLocalIcon)
           ? new IconButton(
               icon: Image.asset(this.iconData), onPressed: onPressed)
-          : new Container();
+          : new Container(padding: EdgeInsets.only(left: 50),);
     }
     return Container(
       child: new Row(
@@ -38,7 +38,7 @@ class MImageTitleBar extends StatelessWidget {
           new Expanded(
               child: new Padding(
             padding: EdgeInsets.only(right: 10),
-            child: new Image.asset(this.image),
+            child: new Image.asset(this.image, height: 32, width: 103,),
           )),
           widget,
         ],

@@ -14,7 +14,7 @@ class MIconText extends StatelessWidget {
 
   final MainAxisAlignment mainAxisAlignment;
 
-  MIconText(this.icon, this.text, {this.size = 30, this.padding = 10,this.mainAxisAlignment = MainAxisAlignment.center, this.style = MConstant.middleTextWhite});
+  MIconText(this.icon, this.text, {this.size = 20, this.padding = 10,this.mainAxisAlignment = MainAxisAlignment.center, this.style = MConstant.smallTextWhite});
 
   @override
   Widget build(BuildContext context) {

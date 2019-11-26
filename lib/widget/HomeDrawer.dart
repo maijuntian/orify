@@ -4,6 +4,7 @@ import 'package:gsy_github_app_flutter/common/model/m_user_entity.dart';
 import 'package:gsy_github_app_flutter/common/redux/mai_state.dart';
 import 'package:gsy_github_app_flutter/common/style/gsy_style.dart';
 import 'package:gsy_github_app_flutter/common/style/m_style.dart';
+import 'package:gsy_github_app_flutter/common/utils/common_utils.dart';
 import 'package:gsy_github_app_flutter/common/utils/m_navigator_utils.dart';
 import 'package:gsy_github_app_flutter/widget/m_icon_text.dart';
 import 'package:gsy_github_app_flutter/widget/m_icon_text_vertical.dart';
@@ -41,6 +42,8 @@ class HomeDrawer extends StatelessWidget {
                 child: SafeArea(
                   child: Column(
                     children: <Widget>[
+                      new Padding(padding: EdgeInsets.all(10.0)),
+
                       ///用户头像
                       new RawMaterialButton(
                           onPressed: () {},
@@ -51,11 +54,12 @@ class HomeDrawer extends StatelessWidget {
                               minWidth: 0.0, minHeight: 0.0),
                           child: new ClipOval(
                             child: new FadeInImage.assetNetwork(
-                              fit: BoxFit.fitWidth,
-                              image: user.icon,
-                              width: 80.0,
-                              height: 80.0,
-                              placeholder: GSYICons.DEFAULT_USER_ICON,
+                              fadeInDuration: Duration(milliseconds: 300),
+                              fit: BoxFit.cover,
+                              image: user.icon == null?GSYICons.DEFAULT_IMAGE_PATH+"icon_login_in.png":user.icon,
+                              width: 60.0,
+                              height: 60.0,
+                              placeholder: GSYICons.DEFAULT_IMAGE_PATH+"icon_login_in.png",
                             ),
                           )),
                       new Padding(padding: EdgeInsets.all(5.0)),
@@ -66,44 +70,53 @@ class HomeDrawer extends StatelessWidget {
                       new Padding(padding: EdgeInsets.all(30.0)),
                       Expanded(
                         child: Container(
-                          padding: EdgeInsets.only(left: 20, right: 20,),
+                          padding: EdgeInsets.only(
+                            left: 20,
+                            right: 20,
+                          ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
                               GestureDetector(
                                 child: MIconText(
-                                  GSYICons.DEFAULT_USER_ICON,
-                                  "Test1",
+                                  GSYICons.DEFAULT_IMAGE_PATH +
+                                      "icon_profile.png",
+                                  CommonUtils.getLocale(context).Profile,
                                   style: MConstant.middleSubText,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                 ),
                                 onTap: () {},
                               ),
-                              new Padding(padding: EdgeInsets.all(10.0)),
+                              new Padding(padding: EdgeInsets.all(25.0)),
                               GestureDetector(
                                 child: MIconText(
-                                  GSYICons.DEFAULT_USER_ICON,
-                                  "Test2",
+                                  GSYICons.DEFAULT_IMAGE_PATH +
+                                      "icon_verification_record.png",
+                                  CommonUtils.getLocale(context)
+                                      .Verification_Record,
                                   style: MConstant.middleSubText,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                 ),
                                 onTap: () {},
                               ),
-                              new Padding(padding: EdgeInsets.all(10.0)),
+                              new Padding(padding: EdgeInsets.all(25.0)),
                               GestureDetector(
                                 child: MIconText(
-                                  GSYICons.DEFAULT_USER_ICON,
-                                  "Test3",
+                                  GSYICons.DEFAULT_IMAGE_PATH +
+                                      "icon_ranks.png",
+                                  CommonUtils.getLocale(context)
+                                      .Ranks_and_Interests,
                                   style: MConstant.middleSubText,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                 ),
                                 onTap: () {},
                               ),
-                              new Padding(padding: EdgeInsets.all(10.0)),
+                              new Padding(padding: EdgeInsets.all(25.0)),
                               GestureDetector(
                                 child: MIconText(
-                                  GSYICons.DEFAULT_USER_ICON,
-                                  "Test4",
+                                  GSYICons.DEFAULT_IMAGE_PATH +
+                                      "icon_version.png",
+                                  CommonUtils.getLocale(context).Version,
                                   style: MConstant.middleSubText,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                 ),
@@ -113,11 +126,22 @@ class HomeDrawer extends StatelessWidget {
                           ),
                         ),
                       ),
+
                       Container(
-                        padding: EdgeInsets.only(bottom: 20),
+                        padding: EdgeInsets.only(left:27, bottom: 27),
                         child: Row(
-                        children: <Widget>[
-                          Expanded(
+                          children: <Widget>[
+                            GestureDetector(
+                              child: MIconTextVertical(
+                                GSYICons.DEFAULT_IMAGE_PATH+(user.uuid == null?"icon_login_in.png":"icon_logout.png"),
+                                user.uuid == null?CommonUtils.getLocale(context).Login_in:CommonUtils.getLocale(context).Logout,
+                                style: MConstant.middleSubText,
+                                padding: 3.5,
+                              ),
+                              onTap: () {},
+                            ),
+
+                            /* Expanded(
                             child: GestureDetector(
                               child: MIconTextVertical(
                                 GSYICons.DEFAULT_USER_ICON,
@@ -149,10 +173,10 @@ class HomeDrawer extends StatelessWidget {
                               onTap: () {},
                             ),
                             flex: 1,
-                          ),
-                        ],
-                      ),)
-
+                          ),*/
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),

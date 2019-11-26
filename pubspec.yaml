@@ -113,9 +113,7 @@ flutter:
   # see https://flutter.io/custom-fonts/#from-packages
 
   assets:
-    - static/images/logo.png
-    - static/images/welcome.png
-    - static/images/default_img.png
+    - static/images/
     - static/file/rejection.json
     - static/file/rejection2.json
     - static/file/flare_flutter_logo_.flr
