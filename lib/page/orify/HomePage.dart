@@ -54,6 +54,7 @@ class HomePage extends StatelessWidget {
               'Discover the Product\nSlogan Text',
               style: MConstant.largeTextWhiteBold,
                       textAlign: TextAlign.center,
+
             ))),
             GestureDetector(
                   child: Container(
