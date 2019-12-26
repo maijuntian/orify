@@ -71,7 +71,9 @@ class HomePage extends StatelessWidget {
                     color: Color(MColors.white10),
                     borderRadius: BorderRadius.all(new Radius.circular(20)),
                   )),
-              onTap: () {},
+              onTap: () {
+                MNavigatorUtils.goScanQRCodePage(context);
+              },
             ),
             Padding(
               padding: EdgeInsets.only(top: 15),

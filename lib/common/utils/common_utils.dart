@@ -407,4 +407,11 @@ class CommonUtils {
           );
         });
   }
+
+  static renderDivider() {
+    return Container(
+      color: Color(0xfff6f6f6),
+      height: 0.5,
+    );
+  }
 }

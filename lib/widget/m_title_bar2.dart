@@ -29,6 +29,7 @@ class MImageTitleBar extends StatelessWidget {
     if (rightWidget == null) {
       widget = (needRightLocalIcon)
           ? new IconButton(
+        iconSize: 30,
               icon: Image.asset(this.iconData), onPressed: onPressed)
           : new Container(padding: EdgeInsets.only(left: 50),);
     }

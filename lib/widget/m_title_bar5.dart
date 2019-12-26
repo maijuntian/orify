@@ -7,17 +7,20 @@ import 'package:gsy_github_app_flutter/common/style/gsy_style.dart';
  * Created by mai
  * on 2018/7/24.
  */
-class MImageTitleBarCommon extends StatelessWidget {
+class MRightTextTitleBarCommon extends StatelessWidget {
   final String backIcon;
 
-  final String iconData;
+  final String rightText;
 
   final double size;
 
-  MImageTitleBarCommon(
+  final GestureTapCallback onTap;
+
+  MRightTextTitleBarCommon(
       {this.backIcon = GSYICons.DEFAULT_IMAGE_PATH + "top_icon_back1.png",
-        this.iconData = GSYICons.DEFAULT_IMAGE_PATH + "logo.png",
-        this.size = 30});
+      this.rightText,
+      this.size = 30,
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -37,17 +40,19 @@ class MImageTitleBarCommon extends StatelessWidget {
           },
         ),
         Container(
-            height: 50,
-            child: Align(
-              alignment: Alignment.center,
-              child: new Image.asset(
-                this.iconData,
-                height: 32,
-                width: 103,
+          height: 50,
+          margin: EdgeInsets.only(right: 10),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              child: Text(
+                rightText,
+                style: MConstant.smallTextWhite,
               ),
-            ) ,
+              onTap: onTap,
+            ),
+          ),
         )
-
       ],
     );
   }

@@ -33,7 +33,7 @@ class MUserDao {
     return res;
   }
 
-  static Future<MUserEntity> userInfoLocal(store) async {
+  static Future<MUserEntity> userInfoLocal() async {
     var userText = await LocalStorage.get(Config.USER_INFO);
     if (userText != null) {
       var userMap = json.decode(userText);
@@ -44,9 +44,10 @@ class MUserDao {
     }
   }
 
-  static clearUserInfo() {
+  static clearUserInfo(store) {
     mHttpManager.clearAuthorization();
     LocalStorage.remove(Config.USER_INFO);
+    store.dispatch(new MUpdateUserAction(MUserEntity.empty()));
   }
 
   static Future<bool> isLoginAsync() async {
@@ -54,7 +55,7 @@ class MUserDao {
     return token != null;
   }
 
-  static Future<MDataResult<Object>> updateInfo(params) async {
+  static Future<MDataResult<Object>> updateInfo(Map<String, dynamic> params) async {
     return new MDataResult<MUserEntity>(await mHttpManager.netFetch(
         MAddress.getUpdateInfo(), params, null, new Options(method: "PUT")));
   }
@@ -128,5 +129,10 @@ class MUserDao {
   static Future<MDataResult<String>> region() async {
     return new MDataResult<String>(
         await mHttpManager.netFetch(MAddress.getRegion(), null, null, null), type: 0);
+  }
+
+  static Future<MDataResult<String>> authentication(String url) async {
+    return new MDataResult<String>(
+        await mHttpManager.netFetch(url, null, null, null), type: 0);
   }
 }

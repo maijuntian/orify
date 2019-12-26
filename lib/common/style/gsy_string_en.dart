@@ -292,7 +292,7 @@ class GSYStringEn extends GSYStringBase {
   @override
   String Profile = "Profile";
   @override
-  String Verification_Record = "VerificationRecord";
+  String Verification_Record = "Verification Record";
   @override
   String Ranks_and_Interests = "Ranks and Interests";
   @override
@@ -314,7 +314,71 @@ class GSYStringEn extends GSYStringBase {
   @override
   String Login_Tip= "By signing in, you agree with Viverfy‘s";
   @override
-  String User_Agreement= "User Agreement";
+  String User_Agreement= "《User Agreement》";
   @override
   String Or= "Or";
+  @override
+  String please_input_username = "Please enter your email address.";
+  @override
+  String please_input_pwd = "Please enter your password.";
+  @override
+  String Forgot_Password = "Forgot Password";
+  @override
+  String Create_New_Account = "Create New Account";
+  @override
+  String Mobile_number_or_email_address="Mobile number or email address";
+  @override
+  String Verification_code = "Verification code";
+  @override
+  String Send= "Send";
+  @override
+  String Passwords_Tip = "Passords must be at least 6 characters.";
+  @override
+  String Continue = "Continue";
+  @override
+  String Register = "Register";
+  @override
+  String Please_enter_your_account_and_password = "Please enter your account and password";
+  @override
+  String Reset_Password = "Reset Password";
+  @override
+  String Reset_Password_Tip = "We have sent a code to your email.\nPlease enter it below.";
+  @override
+  String Input_New_Password = "Input New Password";
+  @override
+  String Confirm_New_Password = "Confirm New Password";
+  @override
+  String Password_does_not_match = "Password does not match.";
+  @override
+  String Album = "Album";
+  @override
+  String Profile_Picture = "Profile Picture";
+  @override
+  String Date_of_Birth = "Date of Birth";
+  @override
+  String Name = "Name";
+  @override
+  String Gender  = "Gender";
+  @override
+  String Female = "Female";
+  @override
+  String Male = "Male";
+  @override
+  String Mobile_Number = "Mobile_Number";
+  @override
+  String Sign_out="Sign out";
+  @override
+  String Select_from_album = "Select from album";
+  @override
+  String Take_a_picture = "Take a picture";
+  @override
+  String Tracing_Results = "Tracing Results";
+  @override
+  String User_Agreement2 = "User Agreement";
+  @override
+  String Cell = "Cell";
+  @override
+  String Code = "Code";
+  @override
+  String NULL = "N/A";
 }

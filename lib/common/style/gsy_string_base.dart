@@ -260,4 +260,68 @@ abstract class GSYStringBase {
   String User_Agreement;
 
   String Or;
+
+  String please_input_username;
+
+  String please_input_pwd;
+
+  String Forgot_Password;
+
+  String Create_New_Account;
+
+  String Mobile_number_or_email_address;
+
+  String Verification_code;
+
+  String Send;
+
+  String Passwords_Tip;
+
+  String Continue;
+
+  String Register;
+
+  String Please_enter_your_account_and_password;
+
+  String Reset_Password;
+
+  String Reset_Password_Tip;
+
+  String Input_New_Password;
+
+  String Confirm_New_Password;
+
+  String Password_does_not_match;
+
+  String Album;
+
+  String Profile_Picture;
+
+  String Date_of_Birth;
+
+  String Name;
+
+  String Gender;
+
+  String Female;
+
+  String Male;
+
+  String Mobile_Number;
+
+  String Sign_out;
+
+  String Select_from_album;
+
+  String Take_a_picture;
+
+  String Tracing_Results;
+
+  String User_Agreement2;
+
+  String Cell;
+
+  String Code;
+
+  String NULL;
 }

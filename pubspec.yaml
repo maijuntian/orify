@@ -41,6 +41,10 @@ dependencies:
   provider: ^3.0.0+1
   flutter_qr_reader: ^1.0.2
   image_picker: ^0.6.0+9
+  image_crop: ^0.3.1
+  numberpicker: ^1.1.0
+  pull_to_refresh: ^1.5.7
+  date_format: ^1.0.6
   #  majascan: ^0.3.1
   flare_flutter:
     git:

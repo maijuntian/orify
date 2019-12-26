@@ -92,4 +92,7 @@ class MAddress {
     return "${host}user/auth/login/google";
   }
 
+  static getUserAgreement(){
+    return "${host}system/user/agreement?lang=EN";
+  }
 }

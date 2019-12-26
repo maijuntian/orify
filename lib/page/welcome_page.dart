@@ -155,7 +155,7 @@ class _WelcomePageState extends State<WelcomePage> {
           if (res.success && res.data.code == 200) {
             _home(store, res.data.getObject().region);
           } else {
-            MUserDao.clearUserInfo();
+            MUserDao.clearUserInfo(store);
             _region(store);
           }
         } else {

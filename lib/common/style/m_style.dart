@@ -22,13 +22,15 @@ class MColors {
   static const int white10 = 0x10FFFFFF;
   static const int actionBlue = 0xff267aff;
   static const int subTextColor = 0xff666666;
+  static const int grayTextColor = 0xffc4c4c4;
   static const int subLightTextColor = 0xffc4c4c4;
+  static const int blueTextColor = 0xff75c0f4;
 
   static const int mainBackgroundColor = miWhite;
 
   static const int mainTextColor = primaryDarkValue;
   static const int textColorWhite = white;
-  static const int textColorBlack = 0xff333333;
+  static const int textColorBlack = 0xff00001B;
 
   static const MaterialColor primarySwatch = const MaterialColor(
     primaryValue,
@@ -50,23 +52,55 @@ class MColors {
 ///文本样式
 class MConstant {
 
+  static String birthDay = "";
+
+  static String birthDaySet = "";
+
+  static String birthDaySetEN = "";
+
   static const String app_default_share_url = "https://github.com/CarGuo/MGithubAppFlutter";
 
   static const lagerTextSize = 30.0;
   static const bigTextSize = 20.0;
   static const normalTextSize = 18.0;
-  static const middleTextWhiteSize = 16.0;
+  static const middleTextSize = 16.0;
   static const smallTextSize = 14.0;
   static const minTextSize = 12.0;
+  static const mminTextSize = 10.0;
+
+  static const mminTextBlue = TextStyle(
+    color: Color(MColors.blueTextColor),
+    fontSize: mminTextSize,
+  );
+
+  static const mminTextGray = TextStyle(
+    color: Color(MColors.grayTextColor),
+    fontSize: mminTextSize,
+  );
+
+  static const minTextGray = TextStyle(
+    color: Color(MColors.grayTextColor),
+    fontSize: minTextSize,
+  );
 
   static const minTextWhite = TextStyle(
     color: Color(MColors.textColorWhite),
     fontSize: minTextSize,
   );
 
+  static const minTextBlack = TextStyle(
+    color: Color(MColors.textColorBlack),
+    fontSize: minTextSize,
+  );
+
   static const minText = TextStyle(
     color: Color(MColors.subLightTextColor),
     fontSize: minTextSize,
+  );
+
+  static const smallTextGray = TextStyle(
+    color: Color(MColors.grayTextColor),
+    fontSize: smallTextSize,
   );
 
   static const smallTextWhite = TextStyle(
@@ -111,46 +145,56 @@ class MConstant {
     fontSize: smallTextSize,
   );
 
+  static const middleTextGray = TextStyle(
+    color: Color(MColors.grayTextColor),
+    fontSize: middleTextSize,
+  );
+
   static const middleText = TextStyle(
     color: Color(MColors.mainTextColor),
-    fontSize: middleTextWhiteSize,
+    fontSize: middleTextSize,
   );
 
   static const middleTextWhite = TextStyle(
     color: Color(MColors.textColorWhite),
-    fontSize: middleTextWhiteSize,
+    fontSize: middleTextSize,
   );
 
   static const middleSubText = TextStyle(
     color: Color(MColors.subTextColor),
-    fontSize: middleTextWhiteSize,
+    fontSize: middleTextSize,
   );
 
   static const middleSubLightText = TextStyle(
     color: Color(MColors.subLightTextColor),
-    fontSize: middleTextWhiteSize,
+    fontSize: middleTextSize,
   );
 
   static const middleTextBold = TextStyle(
     color: Color(MColors.mainTextColor),
-    fontSize: middleTextWhiteSize,
+    fontSize: middleTextSize,
     fontWeight: FontWeight.bold,
   );
 
   static const middleTextWhiteBold = TextStyle(
     color: Color(MColors.textColorWhite),
-    fontSize: middleTextWhiteSize,
+    fontSize: middleTextSize,
     fontWeight: FontWeight.bold,
   );
 
   static const middleTextBlack= TextStyle(
     color: Color(MColors.textColorBlack),
-    fontSize: middleTextWhiteSize,
+    fontSize: middleTextSize,
+  );
+
+  static const middleTextBlue= TextStyle(
+    color: Color(MColors.blueTextColor),
+    fontSize: middleTextSize,
   );
 
   static const middleSubTextBold = TextStyle(
     color: Color(MColors.subTextColor),
-    fontSize: middleTextWhiteSize,
+    fontSize: middleTextSize,
     fontWeight: FontWeight.bold,
   );
 
