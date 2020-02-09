@@ -6,9 +6,13 @@ import 'package:gsy_github_app_flutter/common/config/config.dart';
 import 'package:gsy_github_app_flutter/common/dao/m_dao_result.dart';
 import 'package:gsy_github_app_flutter/common/local/local_storage.dart';
 import 'package:gsy_github_app_flutter/common/model/m_user_entity.dart';
+import 'package:gsy_github_app_flutter/common/model/record_entity.dart';
 import 'package:gsy_github_app_flutter/common/model/region_entity.dart';
+import 'package:gsy_github_app_flutter/common/model/tracing_result_entity.dart';
+import 'package:gsy_github_app_flutter/common/model/version_entity.dart';
 import 'package:gsy_github_app_flutter/common/net/m_address.dart';
 import 'package:gsy_github_app_flutter/common/net/m_api.dart';
+import 'package:gsy_github_app_flutter/common/net/result_data.dart';
 import 'package:gsy_github_app_flutter/common/redux/m_user_redux.dart';
 
 class MUserDao {
@@ -131,8 +135,35 @@ class MUserDao {
         await mHttpManager.netFetch(MAddress.getRegion(), null, null, null), type: 0);
   }
 
-  static Future<MDataResult<String>> authentication(String url) async {
-    return new MDataResult<String>(
-        await mHttpManager.netFetch(url, null, null, null), type: 0);
+  static Future<MDataResult<TracingResultEntity>> authentication(String url) async {
+
+    return new MDataResult<TracingResultEntity>(
+        await mHttpManager.netFetch(url, null, {"user-agent":"intelliger"}, null));
+  }
+
+  static Future<MDataResult<RecordEntity>> record(int page) async {
+
+    var params = "order=TIME_DESC&pageNum=$page&pageSize=10";
+    return new MDataResult<RecordEntity>(
+        await mHttpManager.netFetch(MAddress.getRecord()+"?"+params, null, {"user-agent":"intelliger"}, null));
+  }
+  static Future<MDataResult<VersionEntity>> version(String version) async {
+    return new MDataResult<VersionEntity>(
+        await mHttpManager.netFetch(MAddress.getVersion(version), null, null, null));
+  }
+
+  static Future<ResultData> iosVersion(String id) async {
+    return await mHttpManager.netFetch(MAddress.getIOSVersion(id), null, null, null);
+  }
+
+  static Future<MDataResult<Object>> feedback(
+      code, content) async {
+    return new MDataResult<Object>(await mHttpManager.netFetch(
+        MAddress.host+ "source/authentication/" + code + "/feedback",
+        {
+          "feedback": content,
+        },
+        null,
+        new Options(method: "POST")));
   }
 }

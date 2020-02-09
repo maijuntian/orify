@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gsy_github_app_flutter/common/dao/m_user_dao.dart';
 import 'package:gsy_github_app_flutter/common/model/m_user_entity.dart';
+import 'package:gsy_github_app_flutter/common/model/tracing_result_entity.dart';
 import 'package:gsy_github_app_flutter/common/redux/m_user_redux.dart';
 import 'package:gsy_github_app_flutter/common/router/anima_route.dart';
 import 'package:gsy_github_app_flutter/common/style/m_style.dart';
@@ -18,9 +19,11 @@ import 'package:gsy_github_app_flutter/page/notify_page.dart';
 import 'package:gsy_github_app_flutter/page/orify/ForgotPwdPage.dart';
 import 'package:gsy_github_app_flutter/page/orify/HomePage.dart';
 import 'package:gsy_github_app_flutter/page/orify/LoginPage.dart';
+import 'package:gsy_github_app_flutter/page/orify/NfcPage.dart';
 import 'package:gsy_github_app_flutter/page/orify/RankInterestsPage.dart';
 import 'package:gsy_github_app_flutter/page/orify/RegisterPage.dart';
 import 'package:gsy_github_app_flutter/page/orify/ScanQRCodePage.dart';
+import 'package:gsy_github_app_flutter/page/orify/TracingResultPage.dart';
 import 'package:gsy_github_app_flutter/page/orify/UserInfoPage.dart';
 import 'package:gsy_github_app_flutter/page/orify/UserMobilePage.dart';
 import 'package:gsy_github_app_flutter/page/orify/VerificationRecordPage.dart';
@@ -32,7 +35,9 @@ import 'package:gsy_github_app_flutter/page/release_page.dart';
 import 'package:gsy_github_app_flutter/page/repository_detail_page.dart';
 import 'package:gsy_github_app_flutter/page/search_page.dart';
 import 'package:gsy_github_app_flutter/page/user_profile_page.dart';
+import 'package:gsy_github_app_flutter/widget/AboutDialog.dart' as prefix0;
 import 'package:gsy_github_app_flutter/widget/BirthdayDialog.dart';
+import 'package:gsy_github_app_flutter/widget/FeedBackDialog.dart';
 
 /**
  * 导航栏
@@ -52,6 +57,10 @@ class MNavigatorUtils {
 
   static goLogin(BuildContext context) {
     return NavigatorRouter(context, new LoginPage());
+  }
+
+  static replaceLogin(BuildContext context) {
+    return NavigatorRouterReplace(context, new LoginPage());
   }
 
   static goRegisterPage(BuildContext context) {
@@ -86,9 +95,19 @@ class MNavigatorUtils {
   static goWebViewPage(BuildContext context, String url, String title) {
     NavigatorRouter(context, new WebViewPage(url, title));
   }
+
   static goUserMobilePage(BuildContext context) {
     NavigatorRouter(context, new UserMobilePage());
   }
+
+  static goTracingResultPage(BuildContext context, TracingResultEntity entity, int code) {
+    NavigatorRouterReplace(context, new TracingResultPage(entity, code));
+  }
+
+  static goNfcPage(BuildContext context) {
+    NavigatorRouter(context, new NfcPage());
+  }
+
   ///仓库详情通知
   static Future goNotifyPage(BuildContext context) {
     return NavigatorRouter(context, new NotifyPage());
@@ -197,6 +216,12 @@ class MNavigatorUtils {
         new CupertinoPageRoute(builder: (context) => pageContainer(widget)));
   }
 
+  ///公共打开方式
+  static NavigatorRouterReplace(BuildContext context, Widget widget) {
+    return Navigator.pushReplacement(context,
+        new CupertinoPageRoute(builder: (context) => pageContainer(widget)));
+  }
+
   ///Page页面的容器，做一次通用自定义
   static Widget pageContainer(widget) {
     return MediaQuery(
@@ -228,6 +253,23 @@ class MNavigatorUtils {
         }
       });
     });
+  }
+
+  static showFeedBackDialog(BuildContext context, code) {
+    showGSYDialog(
+      context: context,
+      builder: (BuildContext context) =>Center(
+          child: FeedBackDialog(code),
+          ),
+    );
+  }
+
+  static showAboutDialog(BuildContext context, url, name, content) {
+    showGSYDialog(
+      context: context,
+      builder: (BuildContext context) =>
+          prefix0.AboutDialog(url, name, content),
+    );
   }
 
   static showChooseDialog(
@@ -270,6 +312,7 @@ class MNavigatorUtils {
                       style: check2
                           ? MConstant.middleTextBlue
                           : MConstant.middleTextBlack,
+                      maxLines: 4,
                     ),
                   ),
                   padding: EdgeInsets.only(top: 20, bottom: 26),

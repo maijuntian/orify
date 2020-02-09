@@ -324,4 +324,30 @@ abstract class GSYStringBase {
   String Code;
 
   String NULL;
+
+  String LOCATIONS;
+
+  String ABOUT_CELLIFE;
+
+  String Close;
+
+  String Feedback;
+  String Find_out_more;
+
+  String Feedback_tip;
+  String anti_fake_tip3;
+  String anti_fake_tip3_end;
+  String anti_fake_tip3_;
+  String anti_fake_tip11;
+  String anti_fake_tip22;
+  String anti_fake_tip33;
+  String illegalCodeTip;
+  String welcome_tip;
+  String Scan;
+  String NFC_tip1;
+  String NFC_tip2;
+  String NFC_tip3;
+  String About;
+  String versionTip;
+  String no_login_tip;
 }

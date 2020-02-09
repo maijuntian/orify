@@ -20,7 +20,7 @@ class MTitleBarCommon extends StatelessWidget {
 
   MTitleBarCommon(this.title,
       {this.backIcon = GSYICons.DEFAULT_IMAGE_PATH + "top_icon_back2.png",
-      this.style = MConstant.middleTextBlack,
+      this.style = MConstant.normalTextBlack,
       this.size = 30,
       this.right});
 

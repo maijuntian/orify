@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_nfc_reader/flutter_nfc_reader.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:gsy_github_app_flutter/common/dao/m_user_dao.dart';
+import 'package:gsy_github_app_flutter/common/style/gsy_style.dart';
+import 'package:gsy_github_app_flutter/common/style/m_style.dart';
+import 'package:gsy_github_app_flutter/common/utils/common_utils.dart';
+import 'package:gsy_github_app_flutter/common/utils/m_navigator_utils.dart';
+import 'package:gsy_github_app_flutter/widget/m_title_bar4.dart';
 
 /**
  * Created by mai on 2019-11-20.
@@ -13,30 +19,73 @@ class NfcPage extends StatefulWidget {
 }
 
 class _NfcPageState extends State<NfcPage> {
-
-
-  NfcData _nfcData;
+  bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
+
+    startNFC();
   }
 
   Future<void> startNFC() async {
-    setState(() {
-      _nfcData = NfcData();
-      _nfcData.status = NFCStatus.reading;
-    });
-
+    if(MConstant.isInitNfc)
+      return;
     print('NFC: Scan started');
-
     print('NFC: Scan readed NFC tag');
+    MConstant.isInitNfc = true;
     FlutterNfcReader.read.listen((response) {
-      print('NFC: Scan readed NFC response-->'+response.id + "  " + response.content +"  " + response.error);
-      setState(() {
-        _nfcData = response;
-      });
+      print('NFC: Scan readed NFC response-->' +
+          response.id +
+          "  " +
+          response.content +
+          "  " +
+          response.error);
+
+      parseCode("https://" + response.content.substring(5));
     });
+  }
+
+  parseCode(String codeStr) {
+    /* if (codeStr.contains("/a/")) {
+      MUserDao.isLoginAsync().then((res) {
+        if (res) {
+          recognizeCode(codeStr);
+        } else {}
+      });
+    } else {*/
+    recognizeCode(codeStr);
+//    }
+  }
+
+  recognizeCode(String codeStr) {
+    print("code:$codeStr");
+    if (isLoading) return;
+    isLoading = true;
+    if (codeStr.contains("intelliger.cn")) {
+      CommonUtils.showLoadingDialog(context);
+      MUserDao.authentication(codeStr).then((res) {
+        Navigator.pop(context);
+        if (res.success) {
+          if (res.data.code == 200 ||
+              res.data.code == 410 ||
+              res.data.code == 208) {
+            MNavigatorUtils.goTracingResultPage(
+                context, res.data.getObject(), res.data.code);
+          } else {
+            Fluttertoast.showToast(
+                msg: CommonUtils.getLocale(context).illegalCodeTip);
+            Navigator.pop(context);
+          }
+        } else {
+          isLoading = false;
+        }
+      });
+    } else {
+      Fluttertoast.showToast(
+          msg: CommonUtils.getLocale(context).illegalCodeTip);
+      Navigator.pop(context);
+    }
   }
 
   Future<void> stopNFC() async {
@@ -55,64 +104,79 @@ class _NfcPageState extends State<NfcPage> {
       );
       response.status = NFCStatus.error;
     }
-
-    setState(() {
-      _nfcData = response;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-          appBar: new AppBar(
-            title: const Text('Plugin example app'),
+    return Stack(
+      children: <Widget>[
+        Container(
+          child: Image.asset(
+            GSYICons.DEFAULT_IMAGE_PATH + "main_bg.png",
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
           ),
-          body: new SafeArea(
-            top: true,
-            bottom: true,
-            child: new Center(
-              child: ListView(
-                children: <Widget>[
-                  new SizedBox(
-                    height: 10.0,
-                  ),
-                  new Text(
-                    '- NFC Status -\n',
-                    textAlign: TextAlign.center,
-                  ),
-                  new Text(
-                    _nfcData != null ? 'Status: ${_nfcData.status}' : '',
-                    textAlign: TextAlign.center,
-                  ),
-                  new Text(
-                    _nfcData != null ? 'Identifier: ${_nfcData.id}' : '',
-                    textAlign: TextAlign.center,
-                  ),
-                  new Text(
-                    _nfcData != null ? 'Content: ${_nfcData.content}' : '',
-                    textAlign: TextAlign.center,
-                  ),
-                  new Text(
-                    _nfcData != null ? 'Error: ${_nfcData.error}' : '',
-                    textAlign: TextAlign.center,
-                  ),
-                  new RaisedButton(
-                    child: Text('Start NFC'),
-                    onPressed: () {
-                      startNFC();
-                    },
-                  ),
-                  new RaisedButton(
-                    child: Text('Stop NFC'),
-                    onPressed: () {
-                      stopNFC();
-                    },
-                  ),
-                ],
-              ),
-            ),
-          )),
+        ),
+        Scaffold(
+            backgroundColor: Color(MColors.trans),
+            body: SafeArea(
+                child: Column(
+              children: <Widget>[
+                MTitleBarCommon(
+                  CommonUtils.getLocale(context).Scan,
+                  backIcon: GSYICons.DEFAULT_IMAGE_PATH + "top_icon_back1.png",
+                  style: MConstant.normalTextWhite,
+                ),
+                Padding(
+                  padding: EdgeInsets.all(90),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize:MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      CommonUtils.getLocale(context).NFC_tip1,
+                      style: MConstant.smallTextWhite,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(5),
+                    ),
+                    Image.asset(
+                      GSYICons.DEFAULT_IMAGE_PATH + "nfc_logo.png",
+                      height: 23,
+                      width: 36,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(5),
+                    ),
+                    Text(
+                      CommonUtils.getLocale(context).NFC_tip2,
+                      style: MConstant.smallTextWhite,
+                    ),
+                  ],
+                ),
+                Text(
+                  CommonUtils.getLocale(context).NFC_tip3,
+                  style: MConstant.smallTextWhite,
+                ),
+                Padding(
+                  padding: EdgeInsets.all(23),
+                ),
+                Image.asset(
+                  GSYICons.DEFAULT_IMAGE_PATH + "sketch_map_nfc.png",
+                  height: 288,
+                  width: 197,
+                ),
+              ],
+            )))
+      ],
     );
+  }
+
+  @override
+  void dispose() {
+//    stopNFC();
+    super.dispose();
   }
 }

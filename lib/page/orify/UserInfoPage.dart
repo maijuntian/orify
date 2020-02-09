@@ -84,6 +84,7 @@ class _UserInfoPageState extends BaseTitlePage<UserInfoPage> {
           child: Column(
             children: <Widget>[
               GestureDetector(
+                behavior: HitTestBehavior.opaque,
                 child: Container(
                   padding:
                   EdgeInsets.only(left: 24, right: 24, top: 20, bottom: 20),
@@ -179,6 +180,7 @@ class _UserInfoPageState extends BaseTitlePage<UserInfoPage> {
               ),
               _renderDivider(),
               GestureDetector(
+                behavior: HitTestBehavior.opaque,
                 child: Container(
                   padding:
                   EdgeInsets.only(left: 24, right: 24, top: 30, bottom: 30),
@@ -249,6 +251,7 @@ class _UserInfoPageState extends BaseTitlePage<UserInfoPage> {
               ),
               _renderDivider(),
               GestureDetector(
+                behavior: HitTestBehavior.opaque,
                 child: Container(
                   padding:
                   EdgeInsets.only(left: 24, right: 24, top: 30, bottom: 30),
@@ -284,6 +287,7 @@ class _UserInfoPageState extends BaseTitlePage<UserInfoPage> {
               ),
               _renderDivider(),
               GestureDetector(
+                behavior: HitTestBehavior.opaque,
                 child: Container(
                   padding:
                   EdgeInsets.only(left: 24, right: 24, top: 30, bottom: 30),
@@ -312,7 +316,11 @@ class _UserInfoPageState extends BaseTitlePage<UserInfoPage> {
                   ),
                 ),
                 onTap: () {
-                  MConstant.birthDay = user.birthday;
+                  if(user.birthday == "N/A"||user.birthday=="无"){
+                    MConstant.birthDay = "Jan 1 2020";
+                  } else {
+                    MConstant.birthDay = user.birthday;
+                  }
                   MNavigatorUtils.showBirthdayDialog(context, store);
                 },
               ),
@@ -358,6 +366,7 @@ class _UserInfoPageState extends BaseTitlePage<UserInfoPage> {
               ),
               _renderDivider(),
               GestureDetector(
+                behavior: HitTestBehavior.opaque,
               child: Container(
                 color: Colors.white,
                 child: Center(

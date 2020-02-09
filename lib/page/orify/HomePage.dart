@@ -1,11 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:fluttertoast/generated/i18n.dart';
+import 'package:gsy_github_app_flutter/common/dao/m_user_dao.dart';
 import 'package:gsy_github_app_flutter/common/localization/default_localizations.dart';
 import 'package:gsy_github_app_flutter/common/model/m_user_entity.dart';
+import 'package:gsy_github_app_flutter/common/model/version_entity.dart';
 import 'package:gsy_github_app_flutter/common/redux/mai_state.dart';
 import 'package:gsy_github_app_flutter/common/style/gsy_style.dart';
 import 'package:gsy_github_app_flutter/common/style/m_style.dart';
@@ -22,14 +26,24 @@ import 'package:gsy_github_app_flutter/widget/gsy_title_bar.dart';
 import 'package:gsy_github_app_flutter/widget/m_icon_text.dart';
 import 'package:gsy_github_app_flutter/widget/m_title_bar.dart';
 import 'package:gsy_github_app_flutter/widget/m_title_bar2.dart';
+import 'package:package_info/package_info.dart';
 
 /**
  * 主页
  * Created by mai
  * Date: 2018-07-16
  */
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   static final String sName = "home";
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  String newUrl;
+  String version;
 
   /// 不退出
   Future<bool> _dialogExitApp(BuildContext context) async {
@@ -43,6 +57,50 @@ class HomePage extends StatelessWidget {
     }
 
     return Future.value(false);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      setState(() {
+        version = packageInfo.version;
+      });
+      checkVersion();
+    });
+  }
+
+  void checkVersion(){
+    if(Platform.isIOS){
+      MUserDao.iosVersion(MConstant.IOSAPPID).then((res){
+        if(res.result){
+          Map<String, dynamic> data = jsonDecode(res.data);
+          if(data['resultCount'] > 0){
+            String newVersion = data['results'][0]['version'];
+
+            if(Comparable.compare(newVersion, version)>0){
+              setState(() {
+                newUrl = "yes_ios";
+              });
+            }
+          }
+        }
+      });
+    } else{
+      MUserDao.version(version).then((res){
+        if(res.success){
+          if(res.data.code == 200){
+            VersionEntity entity = res.data.getObject();
+            if(!entity.latest){
+              setState(() {
+                newUrl=entity.androidUrl;
+              });
+            }
+          }
+        }
+      });
+    }
   }
 
   // This widget is the root of your application.
@@ -91,7 +149,9 @@ class HomePage extends StatelessWidget {
                     color: Color(MColors.white10),
                     borderRadius: BorderRadius.all(new Radius.circular(20)),
                   )),
-              onTap: () {},
+              onTap: () {
+                MNavigatorUtils.goNfcPage(context);
+              },
             ),
             Padding(
               padding: EdgeInsets.only(top: 40),
@@ -128,7 +188,7 @@ class HomePage extends StatelessWidget {
               ),
               Scaffold(
                 backgroundColor: Color(MColors.trans),
-                drawer: HomeDrawer(),
+                drawer: HomeDrawer(newUrl, version),
                 appBar: new AppBar(
                   elevation: 0,
                   backgroundColor: Color(MColors.trans),

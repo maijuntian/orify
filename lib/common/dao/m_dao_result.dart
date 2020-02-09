@@ -8,7 +8,7 @@ class MDataResult<T> {
   /**
    * type  0 字符串   1对象  2数组
    */
-  MDataResult(ResultData data, {type: 1}) {
+  MDataResult(ResultData data,{type: 1}) {
     this.success = data.result;
     if (data.result) {
       if (type == 1)

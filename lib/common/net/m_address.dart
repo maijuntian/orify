@@ -2,7 +2,7 @@ import 'package:gsy_github_app_flutter/common/config/config.dart';
 
 ///网络请求路径
 class MAddress {
-  static const String host = "https://api.viverify.com/";
+  static const String host = "https://api.intelliger.cn/v1/";
 
   static getLogin() {
     return "${host}user/auth/login";
@@ -57,7 +57,7 @@ class MAddress {
   }
 
   static getEmailCode(email) {
-    return "${host}system/sns/verification/${email}";
+    return "${host}system/email/verification/${email}";
   }
 
   static getEmailCode2(email) {
@@ -94,5 +94,17 @@ class MAddress {
 
   static getUserAgreement(){
     return "${host}system/user/agreement?lang=EN";
+  }
+
+  static getAbout(){
+    return "${host}system/about/us";
+  }
+
+  static getRecord() {
+    return "https://api.intelliger.cn/v1/user/source/authentication";
+  }
+
+  static getIOSVersion(id){
+    return "http://itunes.apple.com/cn/lookup?id=${id}";
   }
 }

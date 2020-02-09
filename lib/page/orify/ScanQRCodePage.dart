@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gsy_github_app_flutter/common/dao/m_user_dao.dart';
 import 'package:gsy_github_app_flutter/common/model/m_user_entity.dart';
+import 'package:gsy_github_app_flutter/common/net/address.dart';
 import 'package:gsy_github_app_flutter/common/style/gsy_style.dart';
 import 'package:gsy_github_app_flutter/common/utils/common_utils.dart';
+import 'package:gsy_github_app_flutter/common/utils/m_navigator_utils.dart';
 import 'package:gsy_github_app_flutter/widget/m_title_bar5.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:image_picker/image_picker.dart';
@@ -30,6 +32,8 @@ class _ScanQRCodePageState extends State<ScanQRCodePage>
   //动画控制器
   AnimationController animController;
   Animation<Offset> animation;
+
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -60,26 +64,49 @@ class _ScanQRCodePageState extends State<ScanQRCodePage>
     animController.forward();
   }
 
-  parseCode(String codeStr){
-
-      if (codeStr.contains("/a/")) {
-        MUserDao.isLoginAsync().then((res) {
-          if (res) {
-            recognizeCode(codeStr);
-          } else {
-
-          }
-        });
-      } else {
-        recognizeCode(codeStr);
-      }
+  parseCode(String codeStr) {
+//    if (codeStr.contains("/a/")) {
+//      MUserDao.isLoginAsync().then((res) {
+//        if (res) {
+//          recognizeCode(codeStr);
+//        } else {
+//
+//        }
+//      });
+//    } else {
+      recognizeCode(codeStr);
+//    }
   }
-
-
 
   recognizeCode(String codeStr) {
+    if(isLoading)
+      return;
+    isLoading = true;
+    if (codeStr.contains("intelliger.cn")) {
+      CommonUtils.showLoadingDialog(context);
+      MUserDao.authentication(codeStr).then((res) {
+        Navigator.pop(context);
+        if (res.success) {
+          if (res.data.code == 200 ||
+              res.data.code == 410 ||
+              res.data.code == 208) {
+            MNavigatorUtils.goTracingResultPage(
+                context, res.data.getObject(), res.data.code);
+          } else {
+            Fluttertoast.showToast(
+                msg: CommonUtils.getLocale(context).illegalCodeTip);
+            Navigator.pop(context);
+          }
+        } else {
+          isLoading = false;
+        }
+      });
+    } else {
+      Fluttertoast.showToast(
+          msg: CommonUtils.getLocale(context).illegalCodeTip);
+      Navigator.pop(context);
+    }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,7 +132,7 @@ class _ScanQRCodePageState extends State<ScanQRCodePage>
                   SlideTransition(
                     position: animation,
                     child: Container(
-                      height: 200,
+                      height: 1,
                       width: 200,
                       child: Container(
                         height: 1,
@@ -121,13 +148,12 @@ class _ScanQRCodePageState extends State<ScanQRCodePage>
           SafeArea(
             child: MRightTextTitleBarCommon(
               rightText: CommonUtils.getLocale(context).Album,
-              onTap: ()async {
-                File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+              onTap: () async {
+                File image =
+                    await ImagePicker.pickImage(source: ImageSource.gallery);
                 if (image == null) return;
                 final rest = await FlutterQrReader.imgScan(image);
-                setState(() {
-                  qrText = rest;
-                });
+                parseCode(rest);
               },
             ),
           )
@@ -140,6 +166,7 @@ class _ScanQRCodePageState extends State<ScanQRCodePage>
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
       print(scanData);
+      parseCode(scanData);
     });
   }
 

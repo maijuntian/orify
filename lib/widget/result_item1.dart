@@ -17,46 +17,83 @@ import 'package:gsy_github_app_flutter/common/model/Notification.dart' as Model;
  */
 class ResultItem1 extends StatelessWidget {
   final String title;
-  final int points;
-  final VoidCallback onPressed;
-  final bool succ;
+  final String content;
+  final String pressText;
+  final GestureTapCallback onPressed;
+  final String icon;
 
   ResultItem1(
-      this.succ,
+    this.icon,
     this.title,
-    this.points, {
+    this.content,
+    this.pressText, {
     this.onPressed,
   }) : super();
 
   @override
   Widget build(BuildContext context) {
-
-    Widget icon =
-    Image.asset(
-      GSYICons.DEFAULT_IMAGE_PATH +( succ?"nfc_tag_fail.png":"nfc_tag_success.png"),
-      fit: BoxFit.contain,
-      width: 88,
-      height: 88,
-    );
+    Widget icon = null;
+    if(this.icon.contains("http")){
+      icon = Image.network(this.icon, width: 80, height: 80, fit: BoxFit.contain,);
+    } else {
+      icon = Image.asset(
+        this.icon,
+        fit: BoxFit.contain,
+        width: 80,
+        height: 80,
+      );
+    }
+    
+    
 
     return new Container(
       child: new GSYCardItem(
         child: Padding(
-          padding: EdgeInsets.only(left: 26, right: 26, top: 28, bottom: 30),
+          padding: EdgeInsets.only(left: 13, right: 13, top: 14, bottom: 15),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               icon,
               Padding(
-                padding: EdgeInsets.all(13),
+                padding: EdgeInsets.all(6.5),
               ),
-              Column(
-                children: <Widget>[
-                  Text(
-                    title,
-                    style: MConstant.middleTextBlack,
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      title,
+                      style: MConstant.middleTextBlack,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(5.5),
+                    ),
+                    Text(
+                      content,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Color(0xff9B9B9B),
+                      ),
+                      maxLines: 4,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(5.5),
+                    ),
+                    GestureDetector(
+                      child: Text(
+                        pressText,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xff00001B),
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                      onTap: onPressed,
+                    ),
+                  ],
+                ),
               )
+
             ],
           ),
         ),

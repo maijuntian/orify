@@ -7,6 +7,7 @@ import 'package:gsy_github_app_flutter/common/dao/m_user_dao.dart';
 import 'package:gsy_github_app_flutter/common/dao/repos_dao.dart';
 import 'package:gsy_github_app_flutter/common/dao/user_dao.dart';
 import 'package:gsy_github_app_flutter/common/local/local_storage.dart';
+import 'package:gsy_github_app_flutter/common/net/m_address.dart';
 import 'package:gsy_github_app_flutter/common/redux/gsy_state.dart';
 import 'package:gsy_github_app_flutter/common/redux/mai_state.dart';
 import 'package:gsy_github_app_flutter/common/redux/user_redux.dart';
@@ -50,8 +51,13 @@ class _LoginPageState extends State<LoginPage> {
   initParams() async {
     _userName = await LocalStorage.get(Config.USER_NAME_KEY);
     _password = await LocalStorage.get(Config.PW_KEY);
+    _userName ??="";
+    _password ??="";
     userController.value = new TextEditingValue(text: _userName ?? "");
     pwController.value = new TextEditingValue(text: _password ?? "");
+
+    setState(() {
+    });
   }
 
   _login(store) {
@@ -118,11 +124,13 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       children: <Widget>[
                         new MInputWidget(
-                          hintText:
-                              CommonUtils.getLocale(context).Mobile_number_or_email_address,
+                          hintText: CommonUtils.getLocale(context)
+                              .Mobile_number_or_email_address,
                           iconData: GSYICons.DEFAULT_IMAGE_PATH + "close.png",
                           onChanged: (String value) {
-                            _userName = value;
+                            setState(() {
+                              _userName = value;
+                            });
                           },
                           controller: userController,
                           tapCallback: () {
@@ -132,7 +140,9 @@ class _LoginPageState extends State<LoginPage> {
                         new MPwdInputWidget(
                           hintText: CommonUtils.getLocale(context).Password,
                           onChanged: (String value) {
-                            _password = value;
+                            setState(() {
+                              _password = value;
+                            });
                           },
                           controller: pwController,
                         ),
@@ -143,7 +153,10 @@ class _LoginPageState extends State<LoginPage> {
                               height: 40,
                               width: double.infinity,
                               child: Text(CommonUtils.getLocale(context).Login,
-                                  style: MConstant.middleTextGray),
+                                  style: (_userName.length > 0 &&
+                                          _password.length > 0)
+                                      ? MConstant.middleTextBlack
+                                      : MConstant.middleTextGray),
                               decoration: BoxDecoration(
                                 border: Border.all(
                                     color: Color(MColors.grayTextColor),
@@ -176,13 +189,21 @@ class _LoginPageState extends State<LoginPage> {
                               fontSize: MConstant.mminTextSize),
                           mainAxisAlignment: MainAxisAlignment.start,
                         ),
-                        Container(
-                          child: Text(
-                            CommonUtils.getLocale(context).User_Agreement,
-                            style: MConstant.mminTextBlue,
+                        GestureDetector(
+                          child: Container(
+                            child: Text(
+                              CommonUtils.getLocale(context).User_Agreement,
+                              style: MConstant.mminTextBlue,
+                            ),
+                            padding: EdgeInsets.only(left: 8),
+                            alignment: Alignment.centerLeft,
                           ),
-                          padding: EdgeInsets.only(left: 8),
-                          alignment: Alignment.centerLeft,
+                          onTap: () {
+                            MNavigatorUtils.goWebViewPage(
+                                context,
+                                MAddress.getUserAgreement(),
+                                CommonUtils.getLocale(context).User_Agreement2);
+                          },
                         ),
                         Padding(
                           padding: EdgeInsets.all(12.5),

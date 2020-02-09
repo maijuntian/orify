@@ -363,7 +363,7 @@ class GSYStringZh extends GSYStringBase {
   @override
   String Male = "Male";
   @override
-  String Mobile_Number = "Mobile_Number";
+  String Mobile_Number = "Mobile Number";
   @override
   String Sign_out = "Sign out";
   @override
@@ -380,4 +380,46 @@ class GSYStringZh extends GSYStringBase {
   String Code = "Code";
   @override
   String NULL = "无";
+  @override
+  String LOCATIONS = "LOCATIONS";
+  @override
+  String ABOUT_CELLIFE = "ABOUT_CELLIFE";
+  @override
+  String Close = "Close";
+  @override
+  String Feedback="Feedback";
+  @override
+  String Find_out_more= "Find out more";
+  @override
+  String Feedback_tip= "Please provide relevant is information of the purchase channels: ";
+  @override
+  String anti_fake_tip3= "This code has been verified. This is a genuine product.\nCongratulations on your purchase.\nYou get ";
+  @override
+  String anti_fake_tip3_end=" points.";
+  @override
+  String anti_fake_tip3_= "This code has been verified. This is a genuine product.\nCongratulations on your purchase.";
+  @override
+  String anti_fake_tip11= "Authentication";
+  @override
+  String anti_fake_tip22= "Sorry!";
+  @override
+  String anti_fake_tip33= "This code cannot be verified. This may not \nbe a genuine product.Please contact the seller, \nor provide your feedbacks to us.";
+  @override
+  String illegalCodeTip= "You are not scanning a Viverify code.";
+  @override
+  String welcome_tip = "Viverify Verification System";
+  @override
+  String Scan = "Scan";
+  @override
+  String NFC_tip1 = "Hold your phone close to the";
+  @override
+  String NFC_tip2 = "tag to verify";
+  @override
+  String NFC_tip3 = "the authenticity of the product.";
+  @override
+  String About = "About";
+  @override
+  String versionTip = "You already have the latest version in installed.";
+  @override
+  String no_login_tip = "Login to view your more information！";
 }

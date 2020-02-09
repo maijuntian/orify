@@ -9,12 +9,14 @@ import 'package:gsy_github_app_flutter/common/dao/m_user_dao.dart';
 import 'package:gsy_github_app_flutter/common/dao/repos_dao.dart';
 import 'package:gsy_github_app_flutter/common/dao/user_dao.dart';
 import 'package:gsy_github_app_flutter/common/local/local_storage.dart';
+import 'package:gsy_github_app_flutter/common/net/m_address.dart';
 import 'package:gsy_github_app_flutter/common/redux/gsy_state.dart';
 import 'package:gsy_github_app_flutter/common/redux/mai_state.dart';
 import 'package:gsy_github_app_flutter/common/redux/user_redux.dart';
 import 'package:gsy_github_app_flutter/common/style/gsy_style.dart';
 import 'package:gsy_github_app_flutter/common/style/m_style.dart';
 import 'package:gsy_github_app_flutter/common/utils/common_utils.dart';
+import 'package:gsy_github_app_flutter/common/utils/m_navigator_utils.dart';
 import 'package:gsy_github_app_flutter/widget/m_icon_text.dart';
 import 'package:gsy_github_app_flutter/widget/m_input_pwd_widget.dart';
 import 'package:gsy_github_app_flutter/widget/m_input_widget.dart';
@@ -58,26 +60,26 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   _sendCode(type) {
-    if (isSending) return;
-    isSending = true;
+//    if (isSending) return;
+//    isSending = true;
+    print("type-->$type");
+    _countDown();
     if (type == "phone") {
       MUserDao.snsCode(_userName).then((res) {
-        isSending = true;
         if (res.success) {
           if (res.data.code == 200) {
-            _countDown();
           } else {
+            countdown = 0;
             Fluttertoast.showToast(msg: res.data.message);
           }
         }
       });
     } else {
       MUserDao.emailCode(_userName).then((res){
-        isSending = false;
         if(res.success){
           if(res.data.code == 200){
-            _countDown();
           } else {
+            countdown = 0;
             Fluttertoast.showToast(msg: res.data.message);
           }
         }
@@ -102,6 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   _register(store){
     CommonUtils.showLoadingDialog(context);
+    print("_userName-->" + _userName + "  ${_userName.contains("@")}");
     if(_userName.contains("@")){ //邮箱
       MUserDao.emailRegister(_userName, _password, _code).then((res){
         if(res.success){
@@ -196,7 +199,9 @@ class _RegisterPageState extends State<RegisterPage> {
                               .Mobile_number_or_email_address,
                           iconData: GSYICons.DEFAULT_IMAGE_PATH + "close.png",
                           onChanged: (String value) {
-                            _userName = value;
+                            setState(() {
+                              _userName = value;
+                            });
                           },
                           controller: userController,
                           tapCallback: () {
@@ -210,7 +215,9 @@ class _RegisterPageState extends State<RegisterPage> {
                               ? "${countdown}s"
                               : CommonUtils.getLocale(context).Send,
                           onChanged: (String value) {
-                            _code = value;
+                            setState(() {
+                              _code = value;
+                            });
                           },
                           controller: codeController,
                           tapCallback: () {
@@ -222,7 +229,9 @@ class _RegisterPageState extends State<RegisterPage> {
                         new MPwdInputWidget(
                           hintText: CommonUtils.getLocale(context).Password,
                           onChanged: (String value) {
-                            _password = value;
+                            setState(() {
+                              _password = value;
+                            });
                           },
                           controller: pwController,
                         ),
@@ -245,7 +254,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               width: double.infinity,
                               child: Text(
                                   CommonUtils.getLocale(context).Continue,
-                                  style: MConstant.middleTextGray),
+                                  style: (_userName.length>0 && _password.length >=6 && _code.length>0)?MConstant.middleTextBlack:MConstant.middleTextGray),
                               decoration: BoxDecoration(
                                 border: Border.all(
                                     color: Color(MColors.grayTextColor),
@@ -264,8 +273,6 @@ class _RegisterPageState extends State<RegisterPage> {
                             if(_code == null || _code.length == 0){
                               return;
                             }
-
-                            CommonUtils.showLoadingDialog(context);
                             this._register(store);
                           },
                         ),
@@ -282,13 +289,21 @@ class _RegisterPageState extends State<RegisterPage> {
                               fontSize: MConstant.mminTextSize),
                           mainAxisAlignment: MainAxisAlignment.start,
                         ),
-                        Container(
-                          child: Text(
-                            CommonUtils.getLocale(context).User_Agreement,
-                            style: MConstant.mminTextBlue,
+                        GestureDetector(
+                          child: Container(
+                            child: Text(
+                              CommonUtils.getLocale(context).User_Agreement,
+                              style: MConstant.mminTextBlue,
+                            ),
+                            padding: EdgeInsets.only(left: 8),
+                            alignment: Alignment.centerLeft,
                           ),
-                          padding: EdgeInsets.only(left: 8),
-                          alignment: Alignment.centerLeft,
+                          onTap: () {
+                            MNavigatorUtils.goWebViewPage(
+                                context,
+                                MAddress.getUserAgreement(),
+                                CommonUtils.getLocale(context).User_Agreement2);
+                          },
                         ),
                         Padding(
                           padding: EdgeInsets.all(55),

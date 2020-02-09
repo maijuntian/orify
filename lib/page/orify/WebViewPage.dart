@@ -1,9 +1,11 @@
 import 'dart:collection';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:gsy_github_app_flutter/page/orify/BaseTitlePage.dart';
-
+import 'package:webview_flutter/webview_flutter.dart';
 
 /**
  * Created by mai on 2019-12-23.
@@ -19,10 +21,8 @@ class WebViewPage extends StatefulWidget {
 }
 
 class _WebViewPageState extends BaseTitlePage<WebViewPage> {
-
   @override
   Widget body(BuildContext context) {
-
     /*let headers = {"user-agent": "viverify"};
     headers.Region = Constant.REGION;
 
@@ -33,7 +33,7 @@ class _WebViewPageState extends BaseTitlePage<WebViewPage> {
     if (Constant.DEVICE_ID !== "")
       headers.Device_Id = Constant.DEVICE_ID;*/
 
-    Map<String, String> headers = {"user-agent": "viverify"};
+//    Map<String, String> headers = {"user-agent": "viverify"};
     return Expanded(
       child: new WebviewScaffold(url: widget.url),
     );

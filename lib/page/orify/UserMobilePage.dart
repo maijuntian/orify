@@ -58,13 +58,10 @@ class _UserMobilePageState extends BaseTitlePage<UserMobilePage> {
   }
 
   _sendCode() {
-    if (isSending) return;
-    isSending = true;
+    _countDown();
     MUserDao.snsCode(_userName).then((res) {
-      isSending = true;
       if (res.success) {
         if (res.data.code == 200) {
-          _countDown();
         } else {
           Fluttertoast.showToast(msg: res.data.message);
         }

@@ -52,11 +52,15 @@ class MColors {
 ///文本样式
 class MConstant {
 
+  static final String IOSAPPID = "1454802486";
+
   static String birthDay = "";
 
   static String birthDaySet = "";
 
   static String birthDaySetEN = "";
+
+  static bool isInitNfc = false;
 
   static const String app_default_share_url = "https://github.com/CarGuo/MGithubAppFlutter";
 

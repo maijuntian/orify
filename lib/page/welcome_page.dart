@@ -10,6 +10,7 @@ import 'package:gsy_github_app_flutter/common/dao/user_dao.dart';
 import 'package:gsy_github_app_flutter/common/redux/gsy_state.dart';
 import 'package:gsy_github_app_flutter/common/redux/mai_state.dart';
 import 'package:gsy_github_app_flutter/common/style/gsy_style.dart';
+import 'package:gsy_github_app_flutter/common/style/m_style.dart';
 import 'package:gsy_github_app_flutter/common/utils/common_utils.dart';
 import 'package:gsy_github_app_flutter/common/utils/navigator_utils.dart';
 import 'package:redux/redux.dart';
@@ -29,106 +30,6 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-/* NfcData _nfcData;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-   Future<void> startNFC() async {
-    setState(() {
-      _nfcData = NfcData();
-      _nfcData.status = NFCStatus.reading;
-    });
-
-    print('NFC: Scan started');
-
-    print('NFC: Scan readed NFC tag');
-    FlutterNfcReader.read.listen((response) {
-      print('NFC: Scan readed NFC response-->'+response.id + "  " + response.content +"  " + response.error);
-      setState(() {
-        _nfcData = response;
-      });
-    });
-  }
-
-  Future<void> stopNFC() async {
-    NfcData response;
-
-    try {
-      print('NFC: Stop scan by user');
-      response = await FlutterNfcReader.stop;
-    } on PlatformException {
-      print('NFC: Stop scan exception');
-      response = NfcData(
-        id: '',
-        content: '',
-        error: 'NFC scan stop exception',
-        statusMapper: '',
-      );
-      response.status = NFCStatus.error;
-    }
-
-    setState(() {
-      _nfcData = response;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-          appBar: new AppBar(
-            title: const Text('Plugin example app'),
-          ),
-          body: new SafeArea(
-            top: true,
-            bottom: true,
-            child: new Center(
-              child: ListView(
-                children: <Widget>[
-                  new SizedBox(
-                    height: 10.0,
-                  ),
-                  new Text(
-                    '- NFC Status -\n',
-                    textAlign: TextAlign.center,
-                  ),
-                  new Text(
-                    _nfcData != null ? 'Status: ${_nfcData.status}' : '',
-                    textAlign: TextAlign.center,
-                  ),
-                  new Text(
-                    _nfcData != null ? 'Identifier: ${_nfcData.id}' : '',
-                    textAlign: TextAlign.center,
-                  ),
-                  new Text(
-                    _nfcData != null ? 'Content: ${_nfcData.content}' : '',
-                    textAlign: TextAlign.center,
-                  ),
-                  new Text(
-                    _nfcData != null ? 'Error: ${_nfcData.error}' : '',
-                    textAlign: TextAlign.center,
-                  ),
-                  new RaisedButton(
-                    child: Text('Start NFC'),
-                    onPressed: () {
-                      startNFC();
-                    },
-                  ),
-                  new RaisedButton(
-                    child: Text('Stop NFC'),
-                    onPressed: () {
-                      stopNFC();
-                    },
-                  ),
-                ],
-              ),
-            ),
-          )),
-    );
-  }*/
 
   bool hadInit = false;
 
@@ -169,6 +70,7 @@ class _WelcomePageState extends State<WelcomePage> {
     MUserDao.region().then((res) {
       print(res);
       if (res.success && res.data.code == 200) {
+        print(res.data.getString());
         _home(store, res.data.getString());
       }
     });
@@ -195,9 +97,42 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
               ),
               Center(
-                  child:
-                  new Image(image: new AssetImage('static/images/logo.png')),
-              ),
+                  child: Container(
+                height: 100,
+                child: Column(
+                  children: <Widget>[
+                    Image.asset(
+                      GSYICons.DEFAULT_IMAGE_PATH + "logo.png",
+                      height: 48,
+                      width: 200,
+                      fit: BoxFit.fill,
+                    ),
+                    Padding(padding: EdgeInsets.all(10)),
+                    Text(
+                      CommonUtils.getLocale(context).welcome_tip,
+                      style: TextStyle(
+                        decoration: TextDecoration.none,
+                        fontSize: 10,
+                        color: Colors.white,
+                      ),
+                    )
+                  ],
+                ),
+              )),
+              Align(
+                child: Container(
+                  child: Text(
+                    "www.viverify.com",
+                    style: TextStyle(
+                      decoration: TextDecoration.none,
+                      fontSize: 12,
+                      color: Color(0xFFA1A2B6),
+                    ),
+                  ),
+                  margin: EdgeInsets.only(bottom: 50),
+                ),
+                alignment: Alignment.bottomCenter,
+              )
             ],
           ),
         );

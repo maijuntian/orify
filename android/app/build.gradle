@@ -31,8 +31,8 @@ android {
         applicationId "com.mai.flutter.test"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 26
-        versionName "1.6.2"
+        versionCode 1
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 

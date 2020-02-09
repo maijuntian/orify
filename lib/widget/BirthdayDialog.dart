@@ -157,7 +157,7 @@ class _BirthdayDialogState extends State<BirthdayDialog> {
         _seleYear = newNum;
         if (_seleYear == _currentYear) {
           //选到了今年
-          _maxMonth = _currentMonth;
+          _maxMonth = 12;
           if (_seleMonth >= _currentMonth) {
             //选中月份大于当前月份
             _seleMonth = _currentMonth;
@@ -221,6 +221,7 @@ class _BirthdayDialogState extends State<BirthdayDialog> {
     DateTime dateTime;
 
     String birthDay = MConstant.birthDay;
+    print("初始化$birthDay");
     List<String> birs = birthDay.split(" ");
     if (birs.length == 3) {
       dateTime = new DateTime(
@@ -244,7 +245,7 @@ class _BirthdayDialogState extends State<BirthdayDialog> {
       _seleDay = int.parse(formatDate(dateTime, [dd]));
 
       _maxYear = _currentYear;
-      _maxMonth = _currentMonth;
+//      _maxMonth = _currentMonth;
       _maxDay = getDaysNum(_seleYear, _seleMonth);
     });
 

@@ -61,14 +61,11 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
   }
 
   _sendCode(type) {
-    if (isSending) return;
-    isSending = true;
+    _countDown();
     if (type == "phone") {
       MUserDao.snsCode(_userName).then((res) {
-        isSending = true;
         if (res.success) {
           if (res.data.code == 200) {
-            _countDown();
           } else {
             Fluttertoast.showToast(msg: res.data.message);
           }
@@ -76,10 +73,8 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
       });
     } else {
       MUserDao.emailCode(_userName).then((res) {
-        isSending = false;
         if (res.success) {
           if (res.data.code == 200) {
-            _countDown();
           } else {
             Fluttertoast.showToast(msg: res.data.message);
           }
@@ -242,7 +237,12 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
                               width: double.infinity,
                               child: Text(
                                   CommonUtils.getLocale(context).Continue,
-                                  style: MConstant.middleTextGray),
+                                  style: (_userName.length > 0 &&
+                                          _password.length >= 6 &&
+                                          _code.length > 0 &&
+                                          _confirmPassword.length > 0)
+                                      ? MConstant.middleTextBlack
+                                      : MConstant.middleTextGray),
                               decoration: BoxDecoration(
                                 border: Border.all(
                                     color: Color(MColors.grayTextColor),
@@ -266,10 +266,11 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
                             }
 
                             if (_confirmPassword != _password) {
-                              Fluttertoast.showToast(msg: CommonUtils.getLocale(context).Password_does_not_match);
+                              Fluttertoast.showToast(
+                                  msg: CommonUtils.getLocale(context)
+                                      .Password_does_not_match);
                             }
 
-                            CommonUtils.showLoadingDialog(context);
                             this._reset(store);
                           },
                         ),
