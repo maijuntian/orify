@@ -81,7 +81,7 @@ class ResultItem2 extends StatelessWidget {
                     image: img,
                     width: 56.0,
                     height: 56.0,
-                    placeholder: GSYICons.DEFAULT_IMAGE_PATH + "logo.png",
+                    placeholder: GSYICons.DEFAULT_IMAGE_PATH + "logo_orify.png",
                   ),
                 ),
                 Padding(padding: EdgeInsets.all(6)),

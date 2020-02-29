@@ -98,12 +98,12 @@ class _WelcomePageState extends State<WelcomePage> {
               ),
               Center(
                   child: Container(
-                height: 100,
+                height: 175,
                 child: Column(
                   children: <Widget>[
                     Image.asset(
-                      GSYICons.DEFAULT_IMAGE_PATH + "logo.png",
-                      height: 48,
+                      GSYICons.DEFAULT_IMAGE_PATH + "logo_orify.png",
+                      height: 83,
                       width: 200,
                       fit: BoxFit.fill,
                     ),
@@ -122,7 +122,7 @@ class _WelcomePageState extends State<WelcomePage> {
               Align(
                 child: Container(
                   child: Text(
-                    "www.viverify.com",
+                    "www.orify.com.au",
                     style: TextStyle(
                       decoration: TextDecoration.none,
                       fontSize: 12,

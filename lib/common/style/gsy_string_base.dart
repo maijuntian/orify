@@ -350,4 +350,7 @@ abstract class GSYStringBase {
   String About;
   String versionTip;
   String no_login_tip;
+  String Store;
+  String Points;
+  String Search;
 }

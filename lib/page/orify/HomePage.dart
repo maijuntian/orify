@@ -113,7 +113,8 @@ class _HomePageState extends State<HomePage> {
             Expanded(
                 child: Center(
                     child: Text(
-              'Discover the Product\nSlogan Text',
+                      ""
+              /*'Discover the Product\nSlogan Text'*/,
               style: MConstant.largeTextWhite,
               textAlign: TextAlign.center,
             ))),
@@ -193,7 +194,7 @@ class _HomePageState extends State<HomePage> {
                   elevation: 0,
                   backgroundColor: Color(MColors.trans),
                   title: MImageTitleBar(
-                    GSYICons.DEFAULT_IMAGE_PATH + "logo.png",
+                    GSYICons.DEFAULT_IMAGE_PATH + "logo_orify.png",
                     iconData: user.uuid == null
                         ? GSYICons.DEFAULT_IMAGE_PATH + "top_icon_login_in.png"
                         : null,

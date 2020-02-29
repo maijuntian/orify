@@ -236,7 +236,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           controller: pwController,
                         ),
                         Padding(padding: EdgeInsets.all(4.5)),
-                        MIconText(
+                      /*  MIconText(
                           GSYICons.DEFAULT_IMAGE_PATH + "icon_message.png",
                           CommonUtils.getLocale(context).Passwords_Tip,
                           padding: 2,
@@ -245,7 +245,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               color: Color(0xff9B9B9B),
                               fontSize: MConstant.mminTextSize),
                           mainAxisAlignment: MainAxisAlignment.start,
-                        ),
+                        ),*/
                         Padding(padding: EdgeInsets.all(15)),
                         GestureDetector(
                           child: Container(
@@ -254,7 +254,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               width: double.infinity,
                               child: Text(
                                   CommonUtils.getLocale(context).Continue,
-                                  style: (_userName.length>0 && _password.length >=6 && _code.length>0)?MConstant.middleTextBlack:MConstant.middleTextGray),
+                                  style: (_userName.length>0 /*&& _password.length >=6 */&& _code.length>0)?MConstant.middleTextBlack:MConstant.middleTextGray),
                               decoration: BoxDecoration(
                                 border: Border.all(
                                     color: Color(MColors.grayTextColor),
@@ -266,7 +266,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (_userName == null || _userName.length == 0) {
                               return;
                             }
-                            if (_password == null || _password.length < 6) {
+                            if (_password == null /*|| _password.length < 6*/) {
                               return;
                             }
 

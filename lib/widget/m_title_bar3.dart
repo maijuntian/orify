@@ -16,7 +16,7 @@ class MImageTitleBarCommon extends StatelessWidget {
 
   MImageTitleBarCommon(
       {this.backIcon = GSYICons.DEFAULT_IMAGE_PATH + "top_icon_back1.png",
-        this.iconData = GSYICons.DEFAULT_IMAGE_PATH + "logo.png",
+        this.iconData = GSYICons.DEFAULT_IMAGE_PATH + "logo_orify.png",
         this.size = 30});
 
   @override

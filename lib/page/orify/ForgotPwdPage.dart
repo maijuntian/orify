@@ -219,7 +219,7 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
                           controller: confirmPwController,
                         ),
                         Padding(padding: EdgeInsets.all(4.5)),
-                        MIconText(
+                       /* MIconText(
                           GSYICons.DEFAULT_IMAGE_PATH + "icon_message.png",
                           CommonUtils.getLocale(context).Passwords_Tip,
                           padding: 2,
@@ -228,7 +228,7 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
                               color: Color(0xff9B9B9B),
                               fontSize: MConstant.mminTextSize),
                           mainAxisAlignment: MainAxisAlignment.start,
-                        ),
+                        ),*/
                         Padding(padding: EdgeInsets.all(15)),
                         GestureDetector(
                           child: Container(
@@ -238,7 +238,7 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
                               child: Text(
                                   CommonUtils.getLocale(context).Continue,
                                   style: (_userName.length > 0 &&
-                                          _password.length >= 6 &&
+                                         /* _password.length >= 6 &&*/
                                           _code.length > 0 &&
                                           _confirmPassword.length > 0)
                                       ? MConstant.middleTextBlack
@@ -254,11 +254,11 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
                             if (_userName == null || _userName.length == 0) {
                               return;
                             }
-                            if (_password == null || _password.length < 6) {
+                            if (_password == null /*|| _password.length < 6*/) {
                               return;
                             }
-                            if (_confirmPassword == null ||
-                                _confirmPassword.length < 6) {
+                            if (_confirmPassword == null /*||
+                                _confirmPassword.length < 6*/) {
                               return;
                             }
                             if (_code == null || _code.length == 0) {

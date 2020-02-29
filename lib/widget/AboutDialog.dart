@@ -62,7 +62,7 @@ class _AboutDialogState extends State<AboutDialog> {
                       image: widget.url,
                       width: 244.0,
                       height: 122.0,
-                      placeholder: GSYICons.DEFAULT_IMAGE_PATH + "logo.png",
+                      placeholder: GSYICons.DEFAULT_IMAGE_PATH + "logo_orify.png",
                     ),
                     Padding(padding: EdgeInsets.all(11)),
                     Container(

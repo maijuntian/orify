@@ -288,7 +288,7 @@ class GSYStringEn extends GSYStringBase {
   @override
   String NFC_Tag = "NFC Tag";
   @override
-  String Powered_Tip = "Powered by Viverfy Blockchain Technology";
+  String Powered_Tip = "Powered by Orify Blockchain Technology";
   @override
   String Profile = "Profile";
   @override
@@ -312,9 +312,9 @@ class GSYStringEn extends GSYStringBase {
   @override
   String Login= "Login";
   @override
-  String Login_Tip= "By signing in, you agree with Viverfy‘s";
+  String Login_Tip= "You agree to";
   @override
-  String User_Agreement= "《User Agreement》";
+  String User_Agreement= "《Orify User Agreement》";
   @override
   String Or= "Or";
   @override
@@ -322,9 +322,9 @@ class GSYStringEn extends GSYStringBase {
   @override
   String please_input_pwd = "Please enter your password.";
   @override
-  String Forgot_Password = "Forgot Password";
+  String Forgot_Password = "Forgot password";
   @override
-  String Create_New_Account = "Create New Account";
+  String Create_New_Account = "Create account";
   @override
   String Mobile_number_or_email_address="Mobile number or email address";
   @override
@@ -406,9 +406,9 @@ class GSYStringEn extends GSYStringBase {
   @override
   String anti_fake_tip33= "This code cannot be verified. This may not \nbe a genuine product.Please contact the seller, \nor provide your feedbacks to us.";
   @override
-  String illegalCodeTip= "You are not scanning a Viverify code.";
+  String illegalCodeTip= "You are not scanning a Orify code.";
   @override
-  String welcome_tip = "Viverify Verification System";
+  String welcome_tip = "Orify Verification System";
   @override
   String Scan = "Scan";
   @override
@@ -423,4 +423,10 @@ class GSYStringEn extends GSYStringBase {
   String versionTip = "You already have the latest version in installed.";
   @override
   String no_login_tip = "Login to view your more information！";
+  @override
+  String Store = "Store";
+  @override
+  String Points = "Points";
+  @override
+  String Search = "Search";
 }
